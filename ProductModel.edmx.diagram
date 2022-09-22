@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d790e8ade5e34170b7efc100d621eab2" Name="Diagram1" >
+        <EntityTypeShape EntityType="CienMexicanosModel.User" Width="1.5" PointX="3" PointY="0.5" />
+        <EntityTypeShape EntityType="CienMexicanosModel.Player" Width="1.5" PointX="6.125" PointY="0.5" />
+        <EntityTypeShape EntityType="CienMexicanosModel.Match_Score" Width="1.5" PointX="2.75" PointY="3.25" />
+        <EntityTypeShape EntityType="CienMexicanosModel.Question" Width="1.5" PointX="5.5" PointY="4" />
+        <EntityTypeShape EntityType="CienMexicanosModel.Question_Answer" Width="1.5" PointX="6.5" PointY="6.625" />
+        <EntityTypeShape EntityType="CienMexicanosModel.Answer" Width="1.5" PointX="7.625" PointY="4" />
+        <EntityTypeShape EntityType="CienMexicanosModel.Friends" Width="1.5" PointX="8.375" PointY="0.5" />
+        <AssociationConnector Association="CienMexicanosModel.QuestionQuestion_Answer" />
+        <AssociationConnector Association="CienMexicanosModel.AnswerQuestion_Answer" />
+        <AssociationConnector Association="CienMexicanosModel.UserPlayer" />
+        <AssociationConnector Association="CienMexicanosModel.Match_ScorePlayer" />
+        <EntityTypeShape EntityType="CienMexicanosModel.Match" Width="1.5" PointX="2.875" PointY="6.625" />
+        <AssociationConnector Association="CienMexicanosModel.Question_AnswerMatch" />
+        <AssociationConnector Association="CienMexicanosModel.Match_ScoreMatch" />
+        <AssociationConnector Association="CienMexicanosModel.PlayerFriends" />
+        <EntityTypeShape EntityType="CienMexicanosModel.sysdiagram" Width="1.5" PointX="0.75" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CienMexicanosModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CienMexicanosModelStoreContainer">
+    <EntitySet Name="Users" EntityType="CienMexicanosModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Players" EntityType="CienMexicanosModel.Store.Players" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Match_Score" EntityType="CienMexicanosModel.Store.Match_Score" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Questions" EntityType="CienMexicanosModel.Store.Questions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Question_Answer" EntityType="CienMexicanosModel.Store.Question_Answer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Answers" EntityType="CienMexicanosModel.Store.Answers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Friends" EntityType="CienMexicanosModel.Store.Friends" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Matches" EntityType="CienMexicanosModel.Store.Matches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="CienMexicanosModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Match_ScorePlayer" EntityType="CienMexicanosModel.Store.Match_ScorePlayer" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="QuestionQuestion_Answer" Association="CienMexicanosModel.Store.QuestionQuestion_Answer">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Question_Answer" EntitySet="Question_Answer" />
+    </AssociationSet>
+    <AssociationSet Name="AnswerQuestion_Answer" Association="CienMexicanosModel.Store.AnswerQuestion_Answer">
+      <End Role="Answer" EntitySet="Answers" />
+      <End Role="Question_Answer" EntitySet="Question_Answer" />
+    </AssociationSet>
+    <AssociationSet Name="UserPlayer" Association="CienMexicanosModel.Store.UserPlayer">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Player" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Match_ScorePlayer_Match_Score" Association="CienMexicanosModel.Store.FK_Match_ScorePlayer_Match_Score">
+      <End Role="Match_Score" EntitySet="Match_Score" />
+      <End Role="Match_ScorePlayer" EntitySet="Match_ScorePlayer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Match_ScorePlayer_Player" Association="CienMexicanosModel.Store.FK_Match_ScorePlayer_Player">
+      <End Role="Player" EntitySet="Players" />
+      <End Role="Match_ScorePlayer" EntitySet="Match_ScorePlayer" />
+    </AssociationSet>
+    <AssociationSet Name="Question_AnswerMatch" Association="CienMexicanosModel.Store.Question_AnswerMatch">
+      <End Role="Question_Answer" EntitySet="Question_Answer" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="Match_ScoreMatch" Association="CienMexicanosModel.Store.Match_ScoreMatch">
+      <End Role="Match_Score" EntitySet="Match_Score" />
+      <End Role="Match" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="PlayerFriends" Association="CienMexicanosModel.Store.PlayerFriends">
+      <End Role="Player" EntitySet="Players" />
+      <End Role="Friends" EntitySet="Friends" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="status" Type="bit" Nullable="false" />
+    <Property Name="Players_idPlayer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="idPlayer" />
+    </Key>
+    <Property Name="idPlayer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="lastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Match_Score">
+    <Key>
+      <PropertyRef Name="idMatch_Score" />
+    </Key>
+    <Property Name="idMatch_Score" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="scorePlayerOne" Type="int" Nullable="false" />
+    <Property Name="scorePlayerTwo" Type="int" Nullable="false" />
+    <Property Name="idPlayerOne" Type="int" Nullable="false" />
+    <Property Name="idPlayerTwo" Type="int" Nullable="false" />
+    <Property Name="playerWinner" Type="int" Nullable="false" />
+    <Property Name="Matches_idMatch" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Questions">
+    <Key>
+      <PropertyRef Name="idQuestion" />
+    </Key>
+    <Property Name="idQuestion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="question" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="class" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Question_Answer_idQuestion_Answer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Question_Answer">
+    <Key>
+      <PropertyRef Name="idQuestion_Answer" />
+    </Key>
+    <Property Name="idQuestion_Answer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Matches_idMatch" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Answers">
+    <Key>
+      <PropertyRef Name="idAnswer" />
+    </Key>
+    <Property Name="idAnswer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="answer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="score" Type="int" Nullable="false" />
+    <Property Name="place" Type="int" Nullable="false" />
+    <Property Name="Question_Answer_idQuestion_Answer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Friends">
+    <Key>
+      <PropertyRef Name="idFriend" />
+    </Key>
+    <Property Name="idFriend" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idPlayerOne" Type="int" Nullable="false" />
+    <Property Name="Player_idPlayer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Matches">
+    <Key>
+      <PropertyRef Name="idMatch" />
+    </Key>
+    <Property Name="idMatch" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Match_ScorePlayer">
+    <Key>
+      <PropertyRef Name="Match_Score_idMatch_Score" />
+      <PropertyRef Name="Players_idPlayer" />
+    </Key>
+    <Property Name="Match_Score_idMatch_Score" Type="int" Nullable="false" />
+    <Property Name="Players_idPlayer" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="QuestionQuestion_Answer">
+    <End Role="Question" Type="CienMexicanosModel.Store.Questions" Multiplicity="*" />
+    <End Role="Question_Answer" Type="CienMexicanosModel.Store.Question_Answer" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Question_Answer">
+        <PropertyRef Name="idQuestion_Answer" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Question_Answer_idQuestion_Answer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnswerQuestion_Answer">
+    <End Role="Answer" Type="CienMexicanosModel.Store.Answers" Multiplicity="*" />
+    <End Role="Question_Answer" Type="CienMexicanosModel.Store.Question_Answer" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Question_Answer">
+        <PropertyRef Name="idQuestion_Answer" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="Question_Answer_idQuestion_Answer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserPlayer">
+    <End Role="User" Type="CienMexicanosModel.Store.Users" Multiplicity="*" />
+    <End Role="Player" Type="CienMexicanosModel.Store.Players" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="idPlayer" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Players_idPlayer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Question_AnswerMatch">
+    <End Role="Question_Answer" Type="CienMexicanosModel.Store.Question_Answer" Multiplicity="*" />
+    <End Role="Match" Type="CienMexicanosModel.Store.Matches" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Match">
+        <PropertyRef Name="idMatch" />
+      </Principal>
+      <Dependent Role="Question_Answer">
+        <PropertyRef Name="Matches_idMatch" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Match_ScoreMatch">
+    <End Role="Match_Score" Type="CienMexicanosModel.Store.Match_Score" Multiplicity="*" />
+    <End Role="Match" Type="CienMexicanosModel.Store.Matches" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Match">
+        <PropertyRef Name="idMatch" />
+      </Principal>
+      <Dependent Role="Match_Score">
+        <PropertyRef Name="Matches_idMatch" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PlayerFriends">
+    <End Role="Player" Type="CienMexicanosModel.Store.Players" Multiplicity="1" />
+    <End Role="Friends" Type="CienMexicanosModel.Store.Friends" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="idPlayer" />
+      </Principal>
+      <Dependent Role="Friends">
+        <PropertyRef Name="Player_idPlayer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Match_ScorePlayer_Match_Score">
+    <End Role="Match_Score" Type="CienMexicanosModel.Store.Match_Score" Multiplicity="1" />
+    <End Role="Match_ScorePlayer" Type="CienMexicanosModel.Store.Match_ScorePlayer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Match_Score">
+        <PropertyRef Name="idMatch_Score" />
+      </Principal>
+      <Dependent Role="Match_ScorePlayer">
+        <PropertyRef Name="Match_Score_idMatch_Score" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Match_ScorePlayer_Player">
+    <End Role="Match_ScorePlayer" Type="CienMexicanosModel.Store.Match_ScorePlayer" Multiplicity="*" />
+    <End Role="Player" Type="CienMexicanosModel.Store.Players" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="idPlayer" />
+      </Principal>
+      <Dependent Role="Match_ScorePlayer">
+        <PropertyRef Name="Players_idPlayer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CienMexicanosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProductContext" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Users" EntityType="CienMexicanosModel.User" />
+          <EntitySet Name="Players" EntityType="CienMexicanosModel.Player" />
+          <EntitySet Name="Match_Score" EntityType="CienMexicanosModel.Match_Score" />
+          <EntitySet Name="Questions" EntityType="CienMexicanosModel.Question" />
+          <EntitySet Name="Question_Answer" EntityType="CienMexicanosModel.Question_Answer" />
+          <EntitySet Name="Answers" EntityType="CienMexicanosModel.Answer" />
+          <EntitySet Name="Friends" EntityType="CienMexicanosModel.Friends" />
+          <AssociationSet Name="QuestionQuestion_Answer" Association="CienMexicanosModel.QuestionQuestion_Answer">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Question_Answer" EntitySet="Question_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="AnswerQuestion_Answer" Association="CienMexicanosModel.AnswerQuestion_Answer">
+            <End Role="Answer" EntitySet="Answers" />
+            <End Role="Question_Answer" EntitySet="Question_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="UserPlayer" Association="CienMexicanosModel.UserPlayer">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="Match_ScorePlayer" Association="CienMexicanosModel.Match_ScorePlayer">
+            <End Role="Match_Score" EntitySet="Match_Score" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <EntitySet Name="Matches" EntityType="CienMexicanosModel.Match" />
+          <AssociationSet Name="Question_AnswerMatch" Association="CienMexicanosModel.Question_AnswerMatch">
+            <End Role="Question_Answer" EntitySet="Question_Answer" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="Match_ScoreMatch" Association="CienMexicanosModel.Match_ScoreMatch">
+            <End Role="Match_Score" EntitySet="Match_Score" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="PlayerFriends" Association="CienMexicanosModel.PlayerFriends">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Friends" EntitySet="Friends" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="CienMexicanosModel.sysdiagram" />
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Players" Relationship="CienMexicanosModel.UserPlayer" FromRole="User" ToRole="Player" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="idPlayer" />
+          </Key>
+          <Property Name="idPlayer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="CienMexicanosModel.UserPlayer" FromRole="Player" ToRole="User" />
+          <NavigationProperty Name="Match_Score" Relationship="CienMexicanosModel.Match_ScorePlayer" FromRole="Player" ToRole="Match_Score" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Friends" Relationship="CienMexicanosModel.PlayerFriends" FromRole="Player" ToRole="Friends" />
+          </EntityType>
+        <EntityType Name="Match_Score">
+          <Key>
+            <PropertyRef Name="idMatch_Score" />
+          </Key>
+          <Property Name="idMatch_Score" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Players" Relationship="CienMexicanosModel.Match_ScorePlayer" FromRole="Match_Score" ToRole="Player" />
+          <NavigationProperty Name="Matches" Relationship="CienMexicanosModel.Match_ScoreMatch" FromRole="Match_Score" ToRole="Match" />
+          <Property Name="scorePlayerOne" Type="Int32" Nullable="false" />
+          <Property Name="scorePlayerTwo" Type="Int32" Nullable="false" />
+          <Property Name="idPlayerOne" Type="Int32" Nullable="false" />
+          <Property Name="idPlayerTwo" Type="Int32" Nullable="false" />
+          <Property Name="playerWinner" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="idQuestion" />
+          </Key>
+          <Property Name="idQuestion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Question_Answer" Relationship="CienMexicanosModel.QuestionQuestion_Answer" FromRole="Question" ToRole="Question_Answer" />
+          <Property Name="question" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="class" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Question_Answer">
+          <Key>
+            <PropertyRef Name="idQuestion_Answer" />
+          </Key>
+          <Property Name="idQuestion_Answer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Question" Relationship="CienMexicanosModel.QuestionQuestion_Answer" FromRole="Question_Answer" ToRole="Question" />
+          <NavigationProperty Name="Answer" Relationship="CienMexicanosModel.AnswerQuestion_Answer" FromRole="Question_Answer" ToRole="Answer" />
+          <NavigationProperty Name="Matches" Relationship="CienMexicanosModel.Question_AnswerMatch" FromRole="Question_Answer" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="idAnswer" />
+          </Key>
+          <Property Name="idAnswer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Question_Answer" Relationship="CienMexicanosModel.AnswerQuestion_Answer" FromRole="Answer" ToRole="Question_Answer" />
+          <Property Name="answer" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="score" Type="Int32" Nullable="false" />
+          <Property Name="place" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Friends">
+          <Key>
+            <PropertyRef Name="idFriend" />
+          </Key>
+          <Property Name="idFriend" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Player" Relationship="CienMexicanosModel.PlayerFriends" FromRole="Friends" ToRole="Player" />
+          <Property Name="idPlayerOne" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="QuestionQuestion_Answer">
+          <End Type="CienMexicanosModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="CienMexicanosModel.Question_Answer" Role="Question_Answer" Multiplicity="1" />
+        </Association>
+        <Association Name="AnswerQuestion_Answer">
+          <End Type="CienMexicanosModel.Answer" Role="Answer" Multiplicity="*" />
+          <End Type="CienMexicanosModel.Question_Answer" Role="Question_Answer" Multiplicity="1" />
+        </Association>
+        <Association Name="UserPlayer">
+          <End Type="CienMexicanosModel.User" Role="User" Multiplicity="1" />
+          <End Type="CienMexicanosModel.Player" Role="Player" Multiplicity="1" />
+        </Association>
+        <Association Name="Match_ScorePlayer">
+          <End Type="CienMexicanosModel.Match_Score" Role="Match_Score" Multiplicity="*" />
+          <End Type="CienMexicanosModel.Player" Role="Player" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="idMatch" />
+          </Key>
+          <Property Name="idMatch" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Question_Answer" Relationship="CienMexicanosModel.Question_AnswerMatch" FromRole="Match" ToRole="Question_Answer" />
+          <NavigationProperty Name="Match_Score" Relationship="CienMexicanosModel.Match_ScoreMatch" FromRole="Match" ToRole="Match_Score" />
+        </EntityType>
+        <Association Name="Question_AnswerMatch">
+          <End Type="CienMexicanosModel.Question_Answer" Role="Question_Answer" Multiplicity="*" />
+          <End Type="CienMexicanosModel.Match" Role="Match" Multiplicity="1" />
+        </Association>
+        <Association Name="Match_ScoreMatch">
+          <End Type="CienMexicanosModel.Match_Score" Role="Match_Score" Multiplicity="1" />
+          <End Type="CienMexicanosModel.Match" Role="Match" Multiplicity="1" />
+        </Association>
+        <Association Name="PlayerFriends">
+          <End Type="CienMexicanosModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="CienMexicanosModel.Friends" Role="Friends" Multiplicity="*" />
+        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CienMexicanosModelStoreContainer" CdmEntityContainer="ProductContext">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.Player)">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Match_Score">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.Match_Score)">
+        <MappingFragment StoreEntitySet="Match_Score">
+          <ScalarProperty Name="idMatch_Score" ColumnName="idMatch_Score" />
+          <ScalarProperty Name="scorePlayerOne" ColumnName="scorePlayerOne" />
+          <ScalarProperty Name="scorePlayerTwo" ColumnName="scorePlayerTwo" />
+          <ScalarProperty Name="idPlayerOne" ColumnName="idPlayerOne" />
+          <ScalarProperty Name="idPlayerTwo" ColumnName="idPlayerTwo" />
+          <ScalarProperty Name="playerWinner" ColumnName="playerWinner" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.Question)">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="idQuestion" ColumnName="idQuestion" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="class" ColumnName="class" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Question_Answer">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.Question_Answer)">
+        <MappingFragment StoreEntitySet="Question_Answer">
+          <ScalarProperty Name="idQuestion_Answer" ColumnName="idQuestion_Answer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.Answer)">
+        <MappingFragment StoreEntitySet="Answers">
+          <ScalarProperty Name="idAnswer" ColumnName="idAnswer" />
+          <ScalarProperty Name="answer" ColumnName="answer" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="place" ColumnName="place" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friends">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.Friends)">
+        <MappingFragment StoreEntitySet="Friends">
+          <ScalarProperty Name="idFriend" ColumnName="idFriend" />
+          <ScalarProperty Name="idPlayerOne" ColumnName="idPlayerOne" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matches">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.Match)">
+        <MappingFragment StoreEntitySet="Matches">
+          <ScalarProperty Name="idMatch" ColumnName="idMatch" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(CienMexicanosModel.sysdiagram)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="QuestionQuestion_Answer" TypeName="CienMexicanosModel.QuestionQuestion_Answer" StoreEntitySet="Questions">
+      <EndProperty Name="Question_Answer">
+        <ScalarProperty Name="idQuestion_Answer" ColumnName="Question_Answer_idQuestion_Answer" />
+      </EndProperty>
+      <EndProperty Name="Question">
+        <ScalarProperty Name="idQuestion" ColumnName="idQuestion" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AnswerQuestion_Answer" TypeName="CienMexicanosModel.AnswerQuestion_Answer" StoreEntitySet="Answers">
+      <EndProperty Name="Question_Answer">
+        <ScalarProperty Name="idQuestion_Answer" ColumnName="Question_Answer_idQuestion_Answer" />
+      </EndProperty>
+      <EndProperty Name="Answer">
+        <ScalarProperty Name="idAnswer" ColumnName="idAnswer" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserPlayer" TypeName="CienMexicanosModel.UserPlayer" StoreEntitySet="Users">
+      <EndProperty Name="Player">
+        <ScalarProperty Name="idPlayer" ColumnName="Players_idPlayer" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="idUser" ColumnName="idUser" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Match_ScorePlayer" TypeName="CienMexicanosModel.Match_ScorePlayer" StoreEntitySet="Match_ScorePlayer">
+      <EndProperty Name="Match_Score">
+        <ScalarProperty Name="idMatch_Score" ColumnName="Match_Score_idMatch_Score" />
+      </EndProperty>
+      <EndProperty Name="Player">
+        <ScalarProperty Name="idPlayer" ColumnName="Players_idPlayer" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Question_AnswerMatch" TypeName="CienMexicanosModel.Question_AnswerMatch" StoreEntitySet="Question_Answer">
+      <EndProperty Name="Match">
+        <ScalarProperty Name="idMatch" ColumnName="Matches_idMatch" />
+      </EndProperty>
+      <EndProperty Name="Question_Answer">
+        <ScalarProperty Name="idQuestion_Answer" ColumnName="idQuestion_Answer" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Match_ScoreMatch" TypeName="CienMexicanosModel.Match_ScoreMatch" StoreEntitySet="Match_Score">
+      <EndProperty Name="Match">
+        <ScalarProperty Name="idMatch" ColumnName="Matches_idMatch" />
+      </EndProperty>
+      <EndProperty Name="Match_Score">
+        <ScalarProperty Name="idMatch_Score" ColumnName="idMatch_Score" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PlayerFriends" TypeName="CienMexicanosModel.PlayerFriends" StoreEntitySet="Friends">
+      <EndProperty Name="Player">
+        <ScalarProperty Name="idPlayer" ColumnName="Player_idPlayer" />
+      </EndProperty>
+      <EndProperty Name="Friends">
+        <ScalarProperty Name="idFriend" ColumnName="idFriend" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
